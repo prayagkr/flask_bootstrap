@@ -8,5 +8,5 @@ A Rest Api app available for download / clone and run your app.
 4) navigate to project folder and create project enviroment "python -m venv envFlask"
 5) Activate enviroment "source/bin/activate"  for windows "source/bin/activate.bat"
 6) install project related dependency which is in requirement.txt "pip install -r requirement.txt"
-7) Start your app  "python src/app.py"
+7) Start your app  "python app.py"
 

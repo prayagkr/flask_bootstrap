@@ -1,7 +1,7 @@
 from flask import request, Flask
 from flask_cors import CORS
 from flask_restful import Api
-from url import api_url
+from app_url import api_url
 
 
 app = Flask(__name__)
