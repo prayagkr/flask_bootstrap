@@ -6,6 +6,13 @@ from model.app_response import AppResponse, ResponseEncoder, AppErrorResponse
 from marshmallow import Schema, fields, ValidationError, validates_schema, post_load
 from datetime import date, datetime
 
+# Importing custom exception for implementation 
+from exception.custom_exception import CommonException, InvalidException
+from exception.custom_code import IntenalCode as IC
+from exception.custom_message import IntenalMessage as IM
+
+from service.math_service import MathService
+
 
 def strip_date(data: dict, key: str, fmt="%Y-%m-%d") -> datetime:
     try:
@@ -63,6 +70,43 @@ class MathResource(Resource):
 
         except Exception as e:
             error_response = AppErrorResponse(code=5000, message="Something went wrong", status=False)
+            response = ResponseEncoder().encode(error_response)
+            return json.loads(response), status.HTTP_500_INTERNAL_SERVER_ERROR
+
+
+    def put(self):
+        """
+        In the put request we will use custom exception and service
+        """
+        try:
+            schema = MathSchema()
+            parsed_data: dict = schema.load(request.get_json())
+            mathservice: MathService = MathService(parsed_data)
+            total = mathservice.calculate()
+            result = {'result': total}
+
+            app_response = AppResponse(result)
+            response = ResponseEncoder().encode(app_response)
+            return json.loads(response), status.HTTP_201_CREATED
+
+        except InvalidException as ex:
+            error_response = AppErrorResponse(code=ex.code.value, message=ex.message.value, status=False)
+            response = ResponseEncoder().encode(error_response)
+            return json.loads(response), status.HTTP_404_NOT_FOUND
+
+        except CommonException as ex:
+            error_response = AppErrorResponse(code=ex.code.value, message=ex.message.value, status=False)
+            response = ResponseEncoder().encode(error_response)
+            return json.loads(response), status.HTTP_404_NOT_FOUND
+
+        except ValidationError as err:
+            error_response = AppErrorResponse(code=4040, message=err.messages, status=False)
+            response = ResponseEncoder().encode(error_response)
+            return json.loads(response), status.HTTP_404_NOT_FOUND
+
+        except Exception as ex:
+            print(ex)
+            error_response = AppErrorResponse(code=5000, message=str(ex), status=False)
             response = ResponseEncoder().encode(error_response)
             return json.loads(response), status.HTTP_500_INTERNAL_SERVER_ERROR
 
