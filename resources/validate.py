@@ -1,4 +1,5 @@
 from flask_restful import Resource
+from flask_api import status
 from model.app_response import AppResponse, ResponseEncoder
 import json
 
@@ -11,4 +12,4 @@ class Validate(Resource):
         """
         app_response = AppResponse('Validate')
         response = ResponseEncoder().encode(app_response)
-        return json.loads(response), 200
+        return json.loads(response), status.HTTP_200_OK

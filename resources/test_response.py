@@ -2,9 +2,11 @@ from flask_restful import Resource
 from model.app_response import AppResponse, ResponseEncoder, ListResponse
 import json
 
+
 class Pen:
     def __init__(self, message):
         self.message = message
+
 
 class Message:
     def __init__(self, data):
