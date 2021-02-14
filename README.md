@@ -10,3 +10,11 @@ A Rest Api app available for download / clone and run your app.
 6) install project related dependency which is in requirement.txt "pip install -r requirement.txt"
 7) Start your app  "python app.py"
 
+# Steps 2: 
+### using pipenv
+1) Install Python in your system.
+2) Download or clone this project.
+3) Install library "pip install pipenv"
+4) navigate to project folder
+5) pipenv install -r requirement.tx
+6) pipenv shell to activate environment.
