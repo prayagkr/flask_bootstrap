@@ -16,5 +16,5 @@ A Rest Api app available for download / clone and run your app.
 2) Download or clone this project.
 3) Install library "pip install pipenv"
 4) navigate to project folder
-5) pipenv install -r requirement.tx
-6) pipenv shell to activate environment.
+5) pipenv shell to activate environment.
+6) install dependency "pipenv install" 
